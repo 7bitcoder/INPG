@@ -2,7 +2,7 @@
 #include<math.h>
 struct zespolone
 {
-float re;
+float re;aaaaaaaaaaaaafsffffffffffaaaaaaaaaaa
 float im;
 };
 struct zespolone dodawanie(struct zespolone pierwsza, struct zespolone druga)
