@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #define r 20
 struct dane
-{
+{asdadsfdsgdfg
 char imie[r];
 char nazwisko[r];
 int rok;
