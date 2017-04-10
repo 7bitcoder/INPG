@@ -1,6 +1,6 @@
 aaaaaaaaaaaaaaaaaa#include<stdio.h>
 #include<stdlib.h>
-#define r 20
+#define r 20asdasdasd
 struct dane
 {asdadsfdsgdfg
 char imie[r];
