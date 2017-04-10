@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+int *funkcja(int *, int );
+int main(void)
+{
+    int N, i;
+    int *wskaznik;
+    printf("podaj dlugosc napisu:\n");
+    scanf("%d", &N);
+    wskaznik=funkcja(wskaznik, N);
+if(wskaznik==NULL)
+        printf("blad programu");
+else
+    {
+        for(i=0;i<N;i++)
+            printf("%d", wskaznik[i]);
+    }
+free(wskaznik);
+return 0;
+}
+int *funkcja(int *wskaznik,int N )
+{
+    int i;
+    wskaznik=malloc(N*sizeof(int));
+if(wskaznik==NULL)
+    {
+        return NULL;
+    }
+else
+    {
+        for(i=0;i<N;i++)
+            {
+                wskaznik[i]=2*i+1;
+            }
+    }
+return wskaznik;
+}
+#include<stdio.h>
+#include<stdlib.h>
+int * add(int* tab, int n, int new_elem);
+int main(void)
+{
+    int *tab=NULL;
+    int new_elem, i;
+for(i=0;i<10;i++)
+    {
+        printf("podaj dodatkwoy element tablicy:\n");
+        scanf("%d", &new_elem);
+        tab=add(tab, i, new_elem);
+    }
+for(i=0;i<10;i++)
+    printf("%d ", tab[i]);
+return 0;
+
+
+
+}
+
+int * add(int* tab, int n, int new_elem)
+{
+    int *wskaznik;
+    int i;
+    wskaznik=malloc((n+1)*sizeof(int));
+if(wskaznik==NULL)
+    {
+        printf("blad programu");
+    }
+else
+    {
+        for(i=0;i<n;i++)
+        wskaznik[i]=tab[i];
+    }
+wskaznik[i]=new_elem;
+free(tab);
+return wskaznik;
+}

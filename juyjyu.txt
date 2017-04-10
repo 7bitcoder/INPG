@@ -1,0 +1,56 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 100
+char deleteFirstChar(char** pstr);
+int main(void)
+{
+int a;
+char zwrot='g';
+char *pstr;
+pstr=malloc(N*sizeof(char));
+fgets(pstr, N, stdin);
+while(zwrot!=0)
+{ 
+     zwrot=deleteFirstChar(&pstr);
+     printf("usun %c\n", zwrot);
+     for(a=0;pstr[a]!='\0';a++)
+           printf("%c", pstr[a]);
+}
+return 0;
+}
+
+char deleteFirstChar(char** pstr)
+{
+char *pomocnicza;
+char zwrot=(*pstr)[0];
+int dlugosc=0, i;
+while((*pstr)[dlugosc]!='\0')
+{
+     dlugosc++;
+}
+if(dlugosc==0)
+     return 0;
+pomocnicza=malloc((dlugosc-1)*sizeof(char));
+for(i=0;i<dlugosc;i++)
+     pomocnicza[i]=(*pstr)[i+1];
+free(*pstr);
+*pstr=&pomocnicza[0];
+return zwrot;
+}
+#include<stdio.h>
+unsigned long fibonacci(unsigned int n);
+int main(void)
+{
+    int n;
+    printf("podaj numer wyrazu ciagu fibonacciego:\n");
+    scanf("%ud", &n);
+    printf("%u wyraz ciagu fibonacciego to: %lu", n, fibonacci(n));
+}
+ 
+unsigned long fibonacci(unsigned int n)
+{
+if(n>2)
+     return fibonacci(n-1)+fibonacci(n-2);
+else
+     return 1;
+}

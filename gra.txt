@@ -1,0 +1,134 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define r 20
+struct dane
+{
+char imie[r];
+char nazwisko[r];
+int rok;
+};
+struct lista
+{
+struct dane osoba;
+struct lista* nast;
+};
+struct lista* dodawanie_pocz(struct lista* head)
+{
+struct lista* nowa_osoba;
+nowa_osoba=malloc(sizeof(struct lista));
+if(nowa_osoba==NULL)
+{
+return NULL;
+}
+printf("podaj imie\n");
+getchar();
+fgets((nowa_osoba->osoba).imie, r, stdin);
+printf("podaj nazwisko\n");
+fgets((nowa_osoba->osoba).nazwisko, r, stdin);
+printf("podaj rok urodzenia\n");
+scanf("%d", &(nowa_osoba->osoba).rok);
+nowa_osoba->nast=head;
+return nowa_osoba;
+}
+void wypisz(struct lista* head)
+{
+int a=1;
+struct lista *p;
+for(p=head; p!=NULL;p=p->nast, a++)
+printf("pozycja: %d\nimie: %s\n nazwisko: %s\n rok urodzenia %d\n",a, (p->osoba).imie, (p->osoba).nazwisko, (p->osoba).rok);
+}
+struct lista* wyszukiwanie (struct lista* head)
+{
+int a;
+printf("podaj rok\n");
+scanf("%d", &a);
+struct lista *p;
+for(p=head; p!=NULL;p=p->nast)
+{
+if((p->osoba).rok==a)
+return p;
+
+}
+return 0;
+}
+void dodawanie(struct lista* wsk)
+{
+struct lista* pomocnicza=wsk;
+struct lista* nowa_osoba;
+nowa_osoba=malloc(sizeof(struct lista));
+if(nowa_osoba==NULL)
+{
+return NULL;
+}
+printf("podaj imie\n");
+getchar();
+fgets((nowa_osoba->osoba).imie, r, stdin);
+printf("podaj nazwisko\n");
+fgets((nowa_osoba->osoba).nazwisko, r, stdin);
+printf("podaj rok urodzenia\n");
+scanf("%d", &(nowa_osoba->osoba).rok);
+(nowa_osoba->nast)=(pomocnicza->nast);
+(wsk->nast)=nowa_osoba;
+}
+struct lista* usuwanie_pocz(struct lista* head)
+{
+struct lista * pomocnicza=head;
+free(head);
+return pomocnicza->nast;
+
+}
+struct lista* usuwanie_wszystkiego(struct lista* head)
+{
+struct lista * pomocnicza;
+struct lista * p=head;
+for(p=head; p!=NULL;p=pomocnicza)
+{
+pomocnicza=p->nast;
+free(p);
+}
+return p;
+
+}
+int main(void)
+{
+int wybor;
+struct lista* head=NULL;
+struct lista* pomocnicza;
+printf("jesli chcesz dodac do bazy danych dane wybierz 1\njesli chcesz wyszukac dane wybierz 2\njesli chcesz wypisac liste wybierz 3\njesli chcesz usunac dane na poczatku listy wybierz 4\njesli chcesz usunac cala liste wybierz 5\njesli chcesz zakonczyc program wpisz nieliczbe\n");
+while(scanf("%d", &wybor)==1)
+{
+if(wybor==1)
+{
+head=dodawanie_pocz(head);
+}
+if(wybor==2)
+{
+pomocnicza=wyszukiwanie(head);
+if(pomocnicza!=0)
+{
+printf("imie: %s\nnazwisko: %s\nrok urodzenia %d\njescli chcesz dodac za ta pozycja nowe dane wybierz 1\n",(pomocnicza->osoba).imie , (pomocnicza->osoba).nazwisko, (pomocnicza->osoba).rok );
+scanf("%d", &wybor);
+if(wybor==1)
+dodawanie(pomocnicza);
+}
+else
+printf("nie znaleziono osoby w bazie danych\n");
+}
+if(wybor==3)
+wypisz(head);
+if(wybor==4)
+{
+head=usuwanie_pocz(head);
+}
+if(wybor==5)
+{
+head=usuwanie_wszystkiego(head);
+}
+if(wybor>5||wybor<1)
+{
+printf("prosze podac 1, 2, 3, 4 lub 5\n");
+}
+printf("jesli chcesz dodac do bazy danych dane wybierz 1\njesli chcesz wyszukac dane wybierz 2\njesli chcesz wypisac liste wybierz 3\njesli chcesz usunac dane na poczatku listy wybierz 4\njesli chcesz usunac cala liste wybierz 5\njesli chcesz zakonczyc program wpisz nieliczbe\n");
+}
+return 0;
+}

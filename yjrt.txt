@@ -1,0 +1,105 @@
+#include<stdio.h>
+int **createMatrix(int n);
+void fillMatrix(int ** tab, int n);
+void copyMatrix(int *** tab, int ** src, int n);
+void deleteMatrix(int *** ptab, int n );
+int main(void)
+{
+    int w, k, n;
+    int **tab;
+    int **dtab;
+    printf("\npodaj rozmiar tablicy, wpisanie nie liczby konczy program\n");
+    while(scanf("%d", &n))
+    {
+        if(n==0)
+            {
+            printf("blad programu");
+            printf("\npodaj rozmiar tablicy, wpisanie nie liczby konczy program\n");
+            continue;
+            }
+        tab=createMatrix(n);
+        if(tab==NULL)
+            {
+                printf("\npodaj rozmiar tablicy, wpisanie nie liczby konczy program\n");
+                continue;
+            }
+        fillMatrix(tab, n);
+        copyMatrix(&dtab, tab, n);
+        if(dtab==NULL)
+            {
+                printf("\npodaj rozmiar tablicy, wpisanie nie liczby konczy program\n");
+                continue;
+            }
+        for(w=0;w<n;w++)
+            {
+            printf("\n");
+                for(k=0;k<n;k++)
+                    printf("%4.d ", dtab[w][k]);
+            }
+        deleteMatrix(&tab, n);
+        deleteMatrix(&dtab, n);
+        printf("\npodaj rozmiar tablicy, wpisanie nie liczby konczy program\n");
+}
+    return 0;
+}
+
+int **createMatrix(int n)
+{
+    int i;
+    int **tab;
+    tab=malloc(n*sizeof(int *));
+    if(tab==NULL)
+        return NULL;
+    else
+    {
+        for(i=0;i<n;i++)
+        {
+            tab[i]=malloc(n*sizeof(int));
+            if(tab[i]==NULL)
+            {
+                deleteMatrix(&tab, i);
+                return NULL;
+
+            }
+
+        }
+    }
+    return tab;
+}
+
+void fillMatrix(int ** tab, int n)
+{
+    int w, k, i=1;
+    for(w=0;w<n;w++)
+        for(k=0;k<n;k++)
+            tab[w][k]=i++;
+return 0;
+}
+
+void copyMatrix(int *** pdest, int ** src, int n)
+{
+    int w, k;
+    int **dest;
+    dest=createMatrix(n);
+    if(dest==NULL)
+    {
+         *pdest=NULL;
+         return 0;
+    }
+    for(w=0;w<n;w++)
+        for(k=0;k<n;k++)
+            dest[w][k]=src[w][k];
+    *pdest=dest;
+    return 0;
+
+}
+
+void deleteMatrix(int *** ptab, int n )
+{
+    int i;
+    for(i=0;i<n;i++)
+        free((*ptab)[i]);
+    free(*ptab);
+    *ptab==NULL;
+    return 0;
+}

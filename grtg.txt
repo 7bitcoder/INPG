@@ -1,0 +1,82 @@
+#include<stdio.h>
+#include<math.h>
+struct zespolone
+{
+float re;
+float im;
+};
+struct zespolone dodawanie(struct zespolone pierwsza, struct zespolone druga)
+{
+struct zespolone wynik;
+wynik.re=pierwsza.re +druga.re;
+wynik.im=pierwsza.im +druga.im;
+return wynik;
+};
+float modul(struct zespolone pierwsza)
+{
+float modul_zespolone, liczba;
+liczba=pierwsza.im*pierwsza.im+pierwsza.re*pierwsza.re;
+modul_zespolone=sqrt(liczba);
+return modul_zespolone;
+}
+struct zespolone sprzezenie(struct zespolone pierwsza)
+{
+struct zespolone wynik;
+wynik.re=pierwsza.re;
+wynik.im=(-1)*pierwsza.im;
+return wynik;
+};
+void wypisz_zesp(struct zespolone z)
+{
+printf("%.2f %+.2fi \n", z.re, z.im);
+}
+int main(void)
+{
+int wybor;
+struct zespolone pierwsza, druga, wynik;
+float re1, re2, im1, im2, modul_zespolony;
+printf("dodawanie liczb zespolonych wybierz 1\nmodul liczby zespolonej wybierz 2\nsprzezenie liczby zespolonej wybierz 3\nwpisz nie liczbe aby zakonczyc program\n");
+while(scanf("%d", &wybor)==1)
+{
+if(wybor==1)
+{
+printf("podaj czesc rzeczywista i urojona liczby pierwszej zespolonej\n");
+scanf("%f", &re1);
+scanf("%f", &im1);
+printf("podaj czesc rzeczywista i urojona liczby drugiej zespolonej\n");
+scanf("%f", &re2);
+scanf("%f", &im2);
+pierwsza.re=re1;
+pierwsza.im=im1;
+druga.re=re2;
+druga.im=im2;
+wynik=dodawanie(pierwsza, druga);
+wypisz_zesp(wynik);
+}
+if(wybor==2)
+{
+printf("podaj czesc rzeczywista i urojona liczby zespolonej\n");
+scanf("%f", &re1);
+scanf("%f", &im1);
+pierwsza.re=re1;
+pierwsza.im=im1;
+printf("modul to %2.f\n", modul(pierwsza));
+}
+if(wybor==3)
+{
+printf("podaj czesc rzeczywista i urojona liczby zespolonej\n");
+scanf("%f", &re1);
+scanf("%f", &im1);
+pierwsza.re=re1;
+pierwsza.im=im1;
+wynik=sprzezenie(pierwsza);
+wypisz_zesp(wynik);
+}
+else
+{
+printf("prosze wpisac 1, 2 lub 3\n");
+continue;
+}
+}
+return 0;
+}

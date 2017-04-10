@@ -1,0 +1,175 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <string.h>
+#define ROZMIAR 20
+
+struct osoba
+{
+char imie[ROZMIAR];
+char nazwisko[ROZMIAR];
+long numer;
+
+
+};
+
+struct osoba* dodawanie(struct osoba* tablica, int ilosc_wpisow)
+{
+     struct osoba nowa_osoba;
+     int i;
+     struct osoba* nowa_tablica;
+     nowa_tablica=malloc(sizeof(struct osoba) * (ilosc_wpisow+1 ));
+    if (nowa_tablica==NULL)
+    {
+          printf("nieudana alokacja");
+          return NULL;
+     }
+     else
+     {
+         for(i=0; i< ilosc_wpisow; i++)
+         {
+               strcpy((nowa_tablica[i]).imie, (tablica[i]).imie);
+               strcpy((nowa_tablica + i)->nazwisko, (tablica +i)->nazwisko);
+              (nowa_tablica + i)->numer=(tablica + i)->numer;
+         }
+     printf("Wprowadz imie:\n ");
+     getchar();
+     fgets(nowa_osoba.imie, ROZMIAR, stdin);
+     printf("Wprowadz nazwisko:\n ");
+     fgets(nowa_osoba.nazwisko, ROZMIAR, stdin);
+     printf("Wprowadz numer:\n ");
+     scanf("%ld", &nowa_osoba.numer);
+     strcpy((nowa_tablica+ilosc_wpisow)->imie, nowa_osoba.imie);
+     strcpy((nowa_tablica+ilosc_wpisow)->nazwisko, nowa_osoba.nazwisko);
+     (nowa_tablica+ilosc_wpisow)->numer= nowa_osoba.numer;
+
+    free(tablica);
+    return nowa_tablica;
+    }
+}
+
+int szukaj_nr(struct osoba* tablica, int ilosc_wpisow)
+{
+     long szukany_nr;
+     printf("Podaj prosze numer jaki zyczysz sobie znalezc:\n");
+     scanf("%ld", &szukany_nr);
+    int i=0;
+    for(i;i<ilosc_wpisow; i++)
+    {
+        if(szukany_nr==(tablica +i)->numer)
+       {
+            return i;
+        }
+    }
+     return -1;
+
+}
+
+void wypisz_element(struct osoba adres_elementu)
+{
+    printf("Imie osoby: %s", adres_elementu.imie);
+    printf("Nazwisko osoby: %s", adres_elementu.nazwisko);
+    printf("Numer osoby: %ld\n", adres_elementu.numer);
+}
+struct osoba* usuwanie(struct osoba* tablica, struct osoba* usuwany_adres, int* ilosc_wpisow)
+{
+int i;
+struct osoba* nowa_tablica;
+nowa_tablica=malloc(sizeof(struct osoba) * (*ilosc_wpisow-1 ));
+if (nowa_tablica==NULL)
+{
+    printf("nieudana alokacja");
+    return NULL;
+}
+else
+{
+    int k=0;
+    for(i=0; i< *ilosc_wpisow; i++)
+    {
+
+     if((tablica+i)!=usuwany_adres)
+    {
+        strcpy((nowa_tablica + k)->imie, (tablica +k)->imie);
+        strcpy((nowa_tablica + k)->nazwisko, (tablica +k)->nazwisko);
+       (nowa_tablica + k)->numer=(tablica + k)->numer;
+       k++;
+    }
+
+}
+(*ilosc_wpisow)--;
+free(tablica);
+return nowa_tablica;
+}
+}
+int main()
+{
+struct osoba* tablica = NULL;
+int liczba_wpisow;
+int i=0, szukany_indeks;
+liczba_wpisow=0;
+int wybor;
+int indeks;
+
+printf("Wybierz co chcesz zrobic:\n");
+printf("1- dodawanie osoby do ksiazki telefonicznej\t2-wyszukanie numeru\n");
+printf("3- wypisywanie danych danej osoby\t4-usuwanie osoby z rejestru\n");
+printf("q konczy program\n\n");
+while(scanf("%d", &wybor))
+{
+
+    switch(wybor)
+    {
+    case(1):
+    tablica=dodawanie(tablica, liczba_wpisow);
+    (liczba_wpisow)++;
+    break;
+    case(2):
+    szukany_indeks=szukaj_nr(tablica, liczba_wpisow);
+    if(szukany_indeks== -1)
+    {
+          printf("Nie znaleziono elementu");
+     }
+    else
+    {
+         wypisz_element(tablica[szukany_indeks]);
+    }
+
+    break;
+case(3):
+    if(liczba_wpisow>0)
+
+    {
+
+         printf("Liczba elementow w ksiazce wynosi %d, wybierz nr elementu od 1 do %d\n", liczba_wpisow,             liczba_wpisow);
+
+       scanf("%d", &indeks);
+       wypisz_element(tablica[indeks-1]);
+    }
+    else
+   {
+    printf("Ale ksiazka jest pusta\n!");
+    }
+    break;
+    case(4):
+   if(liczba_wpisow>0)
+   {
+   printf("Liczba elementow w ksiazce wynosi %d, wybierz nr elementu który chcesz usunac od 1 do %d\n",      liczba_wpisow, liczba_wpisow);
+   scanf("%d", &indeks);
+   tablica=usuwanie(tablica, tablica+indeks-1, &liczba_wpisow);
+   printf("Usunieto pomyslnie\n!");
+   }
+   else
+   {
+   printf("Ale ksiazka jest pusta\n!");
+   }
+   break;
+   default:
+   printf("wprowadzono dana nieliczbowa\n");
+}
+printf("Wybierz co chcesz zrobic:\n");
+printf("1- dodawanie osoby do ksiazki telefonicznej\t2-wyszukanie numeru\n");
+printf("3- wypisywanie danych danej osoby\t4-usuwanie osoby z rejestru\n");
+printf("q konczy program\n\n");
+}
+printf("Do widzenia!");
+return 0;
+}
