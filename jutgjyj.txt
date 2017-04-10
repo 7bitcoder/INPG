@@ -2,7 +2,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaa#include<stdio.h>
 #include<stdlib.h>
 int *funkcja(int *, int );
 int main(void)
-{
+{sy7gudyausgduy
     int N, i;
     int *wskaznik;
     printf("podaj dlugosc napisu:\n");
